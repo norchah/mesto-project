@@ -1,0 +1,11 @@
+.header__lang-link {
+    padding: 0;
+    transition: opacity .1s linear;
+}
+
+@media screen and (max-width: 767px) {
+    .header__lang-link {
+        font-size: 18px;
+        line-height: 1.11;
+    }
+}

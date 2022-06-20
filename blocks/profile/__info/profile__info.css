@@ -1,0 +1,8 @@
+.profile__info {
+    margin: 22px 0 0 1px;
+    max-width: 336px;
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 18px;
+}
