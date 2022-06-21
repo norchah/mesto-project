@@ -1,5 +1,7 @@
 .header__lang-link {
     padding: 0;
+    margin: 0;
+    max-width: 142px;
     transition: opacity .1s linear;
 }
 

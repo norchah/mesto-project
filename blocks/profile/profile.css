@@ -1,6 +1,5 @@
 .profile {
     max-width: 880px;
-    min-height: 39px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 3.9fr 1fr;

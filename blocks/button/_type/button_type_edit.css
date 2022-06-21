@@ -2,9 +2,10 @@
     width: 24px;
     height: 24px;
     background-image: url(../../../images/ico_edit.svg);
+    border-radius: 2px;
 }
 
-@media screen and (max-width: 664px) {
+@media screen and (max-width: 700px) {
     .button_type_edit {
         width: 18px;
         height: 18px;

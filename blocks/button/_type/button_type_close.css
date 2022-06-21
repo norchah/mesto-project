@@ -1,10 +1,10 @@
 .button_type_close {
     background-image: url(../../../images/ico_close_size_l.svg);
-    position: relative;
+    position: absolute;
     width: 32px;
     height: 32px;
-    top: -334px;
-    left: 402px;
+    top: -40px;
+    right: -40px;
     border: none;
 }
 
@@ -13,8 +13,8 @@
         background-image: url(../../../images/ico_close_size_s.svg);
         width: 20px;
         height: 20px;
-        top: -330px;
-        left: 240px;
+        top: -37px;
+        right: 0;
     }
 
 }
