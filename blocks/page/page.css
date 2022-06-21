@@ -1,5 +1,6 @@
 .page {
     font-family: 'Inter', 'Arial', sans-serif;
+    text-rendering: optimizeLegibility;
     background-color: #000;
     color: #fff;
     position: relative;
