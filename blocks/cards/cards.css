@@ -6,3 +6,22 @@
     column-gap: 17px;
     row-gap: 20px;
 }
+
+@media screen and (max-width: 918px) {
+    .cards {
+        width: calc(100% - 19px*2);
+        margin: 0 auto;
+        grid-template-columns: repeat(2, minmax(min-content, max-content));
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .cards {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+}

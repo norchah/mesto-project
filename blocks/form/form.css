@@ -1,0 +1,17 @@
+.form {
+    color: #000;
+    width: 430px;
+    height: 330px;
+    background-color: #fff;
+    padding: 34px 36px 37px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 564px) {
+    .form {
+        padding: 25px 22px 25px;
+        width: 282px;
+        height: 322px;
+    }
+}

@@ -1,0 +1,20 @@
+.button_type_close {
+    background-image: url(../../../images/ico_close_size_l.svg);
+    position: relative;
+    width: 32px;
+    height: 32px;
+    top: -334px;
+    left: 402px;
+    border: none;
+}
+
+@media screen and (max-width: 564px) {
+    .button_type_close {
+        background-image: url(../../../images/ico_close_size_s.svg);
+        width: 20px;
+        height: 20px;
+        top: -330px;
+        left: 240px;
+    }
+
+}

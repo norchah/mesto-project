@@ -6,3 +6,17 @@
     padding: 0;
     align-self: flex-start;
 }
+
+@media screen and (max-width: 664px) {
+    .profile__description {
+        font-size: 14px;
+        line-height: 1.21;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .profile__description {
+        max-width: 336px;
+        margin: 7px auto 0;
+    }
+}

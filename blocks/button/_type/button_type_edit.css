@@ -3,3 +3,16 @@
     height: 24px;
     background-image: url(../../../images/ico_edit.svg);
 }
+
+@media screen and (max-width: 664px) {
+    .button_type_edit {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .button_type_edit {
+        align-self: center;
+    }
+}

@@ -3,4 +3,10 @@
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
+    transition: opacity .1s linear;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: .8;
 }

@@ -4,3 +4,7 @@
     width: 24px;
     height: 19px;
 }
+
+.button_type_like:hover {
+    opacity: .5;
+}
