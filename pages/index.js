@@ -14,6 +14,8 @@ const inputTitle = document.querySelector(".form__item_type_card-title");
 const inputUrl = document.querySelector(".form__item_type_card-link");
 const buttonsSaveCard = document.querySelector(".button_type_card-save");
 const buttonsSaveUser = document.querySelector(".button_type_user-save");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
 
 //Array with started cards info
 const initialCards = [
@@ -112,6 +114,9 @@ function pressButtonDelete() {
 // buttons open popups
 buttonEdit.addEventListener("click", () => {
   popupOpened(popupEdit);
+  console.log(inputName.value);
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
 });
 
 buttonAdd.addEventListener("click", () => {
@@ -151,9 +156,8 @@ buttonsSaveCard.addEventListener("click", (evt) => {
 // function for change profile
 buttonsSaveUser.addEventListener("click", (evt) => {
   evt.preventDefault();
-  document.querySelector(".profile__name").textContent = inputName.value;
-  document.querySelector(".profile__description").textContent =
-    inputDescription.value;
+  profileName.textContent = inputName.value;
+  profileDescription.textContent = inputDescription.value;
   inputName.value = "";
   inputDescription.value = "";
   popupClosed(popupEdit);
