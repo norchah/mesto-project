@@ -1,0 +1,10 @@
+.button_type_delete {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-image: url(/images/ico_delete.svg);
+    background-position: center, center;
+    border: none;
+    width: 18px;
+    height: 19px;
+}
