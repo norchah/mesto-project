@@ -12,12 +12,12 @@ const inputDescription = document.querySelector(
 );
 const inputTitle = document.querySelector(".form__item_type_card-title");
 const inputUrl = document.querySelector(".form__item_type_card-link");
-const buttonsSaveCard = document.querySelector(".button_type_card-save");
-const buttonsSaveUser = document.querySelector(".button_type_user-save");
+const buttonSaveCard = document.querySelector(".button_type_card-save");
+const buttonSaveUser = document.querySelector(".button_type_user-save");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
-//Array with started cards info
+//Array with started cards
 const initialCards = [
   {
     name: "Архыз",
@@ -133,7 +133,7 @@ buttonsClose.forEach((btn) => {
 // change content
 
 // function for make Array from inputs values (for cards)
-function createObjCard(inputName, inputDescription) {
+function createArrCard(inputName, inputDescription) {
   let arr = [];
   arr.name = inputName;
   arr.src = inputDescription;
@@ -141,10 +141,10 @@ function createObjCard(inputName, inputDescription) {
 }
 
 //function for add new card after press save
-buttonsSaveCard.addEventListener("click", (evt) => {
+buttonSaveCard.addEventListener("click", (evt) => {
   evt.preventDefault();
   renderCard(
-    createObjCard(inputTitle.value, inputUrl.value),
+    createArrCard(inputTitle.value, inputUrl.value),
     cardTemplate,
     cardContainer
   );
@@ -154,7 +154,7 @@ buttonsSaveCard.addEventListener("click", (evt) => {
 });
 
 // function for change profile
-buttonsSaveUser.addEventListener("click", (evt) => {
+buttonSaveUser.addEventListener("click", (evt) => {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
