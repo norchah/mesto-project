@@ -1,3 +1,4 @@
+import { initialCards } from "./initialCards.js";
 const buttonEdit = document.querySelector(".button_type_edit");
 const buttonAdd = document.querySelector(".button_type_add");
 const buttonsClose = document.querySelectorAll(".button_type_close");
@@ -17,62 +18,40 @@ const buttonSaveUser = document.querySelector(".button_type_user-save");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
-//Array with started cards
-const initialCards = [
-  {
-    name: "Архыз",
-    src: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    src: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    src: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    src: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    src: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    src: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 // rendering start cards
 
 initialCards.forEach((card) => {
   renderCard(card, cardTemplate, cardContainer);
+  pressButtonsLike();
+  pressButtonDelete();
+  pressButtonImage();
 });
 
 //declaration functions
 
 // open popup
-function popupOpened(popup) {
+function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
 
 // close popup
-function popupClosed(popup) {
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
+}
+
+// create card
+function createCard(arr, template) {
+  const newCard = template.querySelector(".card").cloneNode(true);
+  const cardImage = newCard.querySelector(".card__image");
+  cardImage.src = arr.src;
+  cardImage.alt = arr.name;
+  newCard.querySelector(".card__title").textContent = arr.name;
+  return newCard;
 }
 
 // render card
 function renderCard(arr, template, container) {
-  const newCard = template.querySelector(".card").cloneNode(true);
-  newCard.querySelector(".card__image").src = arr.src;
-  newCard.querySelector(".card__image").alt = arr.name;
-  newCard.querySelector(".card__title").textContent = arr.name;
-  container.prepend(newCard);
-  pressButtonsLike();
-  pressButtonDelete();
-  pressButtonImage();
+  container.prepend(createCard(arr, template)); // не уверен правильно ли я понял
 }
 
 //functon press like
@@ -91,9 +70,10 @@ function pressButtonImage() {
   const buttonImage = document.querySelectorAll(".button_type_image");
   buttonImage.forEach((btn) => {
     btn.addEventListener("click", (evt) => {
-      popupOpened(popupImage);
-      popupImage.querySelector(".popup__image").src = evt.target.src;
-      popupImage.querySelector(".popup__image").alt = evt.target.alt;
+      openPopup(popupImage);
+      const popupImg = popupImage.querySelector(".popup__image");
+      popupImg.src = evt.target.src;
+      popupImg.alt = evt.target.alt;
       popupImage.querySelector(".popup__image-description").textContent =
         evt.target.alt;
     });
@@ -113,44 +93,47 @@ function pressButtonDelete() {
 
 // buttons open popups
 buttonEdit.addEventListener("click", () => {
-  popupOpened(popupEdit);
+  openPopup(popupEdit);
   console.log(inputName.value);
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
 });
 
 buttonAdd.addEventListener("click", () => {
-  popupOpened(popupAdd);
+  openPopup(popupAdd);
 });
 
 // button close popups
 buttonsClose.forEach((btn) => {
   btn.addEventListener("click", () => {
-    popupClosed(btn.parentElement.parentElement);
+    closePopup(btn.parentElement.parentElement);
   });
 });
 
 // change content
 
 // function for make Array from inputs values (for cards)
-function createArrCard(inputName, inputDescription) {
-  let arr = [];
-  arr.name = inputName;
-  arr.src = inputDescription;
-  return arr;
+function createCardData(inputName, inputDescription) {
+  const cardData = {};
+  cardData.name = inputName;
+  cardData.src = inputDescription;
+  return cardData;
 }
 
 //function for add new card after press save
 buttonSaveCard.addEventListener("click", (evt) => {
   evt.preventDefault();
   renderCard(
-    createArrCard(inputTitle.value, inputUrl.value),
+    createCardData(inputTitle.value, inputUrl.value),
     cardTemplate,
     cardContainer
   );
+  pressButtonsLike();
+  pressButtonDelete();
+  pressButtonImage();
   inputTitle.value = "";
   inputUrl.value = "";
-  popupClosed(popupAdd);
+  closePopup(popupAdd);
 });
 
 // function for change profile
@@ -158,7 +141,5 @@ buttonSaveUser.addEventListener("click", (evt) => {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
-  inputName.value = "";
-  inputDescription.value = "";
-  popupClosed(popupEdit);
+  closePopup(popupEdit);
 });

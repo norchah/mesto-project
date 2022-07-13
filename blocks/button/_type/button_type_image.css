@@ -4,6 +4,9 @@
     padding: 0;
     margin: 0;
     position: relative;
+    width: 282px;
+    height: 282px;
+    /* object-fit: cover; */
 }
 
 .button_type_image:hover {

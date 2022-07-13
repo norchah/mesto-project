@@ -66,10 +66,10 @@
   <div class="popup popup_type_add">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="form" name="author">
-        <input class="form__item form__item_type_name form__item_type_card-title" type="text" name="name"
+      <form class="form" name="card">
+        <input class="form__item form__item_type_name form__item_type_card-title" type="text" name="title"
           placeholder="Название">
-        <input class="form__item form__item_type_descrition form__item_type_card-link" type="text" name="description"
+        <input class="form__item form__item_type_descrition form__item_type_card-link" type="link" name="description"
           placeholder="Ссылка на картинку">
         <button class="button button_type_save button_type_card-save" type="submit">Сохранить</button>
       </form>
@@ -101,7 +101,7 @@
       </div>
     </article>
   </template>
-  <script src="pages/index.js"></script>
+  <script type="module" src="pages/index.js"></script>
 </body>
 
 </html>
