@@ -13,19 +13,9 @@ const inputDescription = document.querySelector(
 );
 const inputTitle = document.querySelector(".form__item_type_card-title");
 const inputUrl = document.querySelector(".form__item_type_card-link");
-const buttonSaveCard = document.querySelector(".button_type_card-save");
-const buttonSaveUser = document.querySelector(".button_type_user-save");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-
-// rendering start cards
-
-initialCards.forEach((card) => {
-  renderCard(card, cardTemplate, cardContainer);
-  pressButtonsLike();
-  pressButtonDelete();
-  pressButtonImage();
-});
+const forms = document.querySelectorAll(".form");
 
 //declaration functions
 
@@ -40,35 +30,39 @@ function closePopup(popup) {
 }
 
 // create card
-function createCard(arr, template) {
+function createCard(cardData, template) {
   const newCard = template.querySelector(".card").cloneNode(true);
   const cardImage = newCard.querySelector(".card__image");
-  cardImage.src = arr.src;
-  cardImage.alt = arr.name;
-  newCard.querySelector(".card__title").textContent = arr.name;
+  cardImage.src = cardData.src;
+  cardImage.alt = cardData.name;
+  newCard.querySelector(".card__title").textContent = cardData.name;
+  const buttonsLike = newCard.querySelectorAll(".button_type_like");
+  const buttonsDel = newCard.querySelectorAll(".button_type_delete");
+  const buttonsImage = newCard.querySelectorAll(".button_type_image");
+  pressButtonsLike(buttonsLike);
+  pressButtonDelete(buttonsDel);
+  pressButtonImage(buttonsImage);
   return newCard;
 }
 
 // render card
-function renderCard(arr, template, container) {
-  container.prepend(createCard(arr, template)); // не уверен правильно ли я понял
+function renderCard(cardData, template, container) {
+  container.prepend(createCard(cardData, template));
 }
 
-//functon press like
+//functons for press like
 function handleClickLike(evt) {
   evt.target.classList.toggle("button_like_active");
 }
 
-function pressButtonsLike() {
-  const buttonsLike = document.querySelectorAll(".button_type_like");
-  buttonsLike.forEach((btn) => {
-    btn.addEventListener("click", handleClickLike);
+function pressButtonsLike(buttonsArr) {
+  buttonsArr.forEach((evt) => {
+    evt.addEventListener("click", handleClickLike);
   });
 }
 // function for open popup with image
-function pressButtonImage() {
-  const buttonImage = document.querySelectorAll(".button_type_image");
-  buttonImage.forEach((btn) => {
+function pressButtonImage(buttonsArr) {
+  buttonsArr.forEach((btn) => {
     btn.addEventListener("click", (evt) => {
       openPopup(popupImage);
       const popupImg = popupImage.querySelector(".popup__image");
@@ -81,14 +75,21 @@ function pressButtonImage() {
 }
 
 //function for delete
-function pressButtonDelete() {
-  const buttonsDel = document.querySelectorAll(".button_type_delete");
-  buttonsDel.forEach((btn) => {
+function pressButtonDelete(buttonsArr) {
+  buttonsArr.forEach((btn) => {
     btn.addEventListener("click", () => {
       const deletedItem = btn.closest(".card");
       deletedItem.remove();
     });
   });
+}
+
+// function for make Array from inputs values (for cards)
+function createCardData(inputName, inputDescription) {
+  const cardData = {};
+  cardData.name = inputName;
+  cardData.src = inputDescription;
+  return cardData;
 }
 
 // buttons open popups
@@ -112,34 +113,41 @@ buttonsClose.forEach((btn) => {
 
 // change content
 
-// function for make Array from inputs values (for cards)
-function createCardData(inputName, inputDescription) {
-  const cardData = {};
-  cardData.name = inputName;
-  cardData.src = inputDescription;
-  return cardData;
-}
+// forms submits
 
-//function for add new card after press save
-buttonSaveCard.addEventListener("click", (evt) => {
-  evt.preventDefault();
-  renderCard(
-    createCardData(inputTitle.value, inputUrl.value),
-    cardTemplate,
-    cardContainer
-  );
-  pressButtonsLike();
-  pressButtonDelete();
-  pressButtonImage();
-  inputTitle.value = "";
-  inputUrl.value = "";
-  closePopup(popupAdd);
+forms.forEach((form) => {
+  form.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    switch (form.getAttribute("name")) {
+      case "card":
+        renderCard(
+          createCardData(inputTitle.value, inputUrl.value),
+          cardTemplate,
+          cardContainer
+        );
+        inputTitle.value = "";
+        inputUrl.value = "";
+        closePopup(popupAdd);
+        break;
+      case "author":
+        profileName.textContent = inputName.value;
+        profileDescription.textContent = inputDescription.value;
+        closePopup(popupEdit);
+        break;
+      default:
+        const arr = ["Wednesday", "Thursday", "Friday"];
+        let ask = "";
+        arr.forEach((item) => {
+          ask = ask + item.slice(0, 1);
+          return ask;
+        });
+        console.log(`${ask} ?`);
+    }
+  });
 });
 
-// function for change profile
-buttonSaveUser.addEventListener("click", (evt) => {
-  evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileDescription.textContent = inputDescription.value;
-  closePopup(popupEdit);
+// rendering start cards
+
+initialCards.forEach((card) => {
+  renderCard(card, cardTemplate, cardContainer);
 });
