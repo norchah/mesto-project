@@ -15,7 +15,8 @@ const inputTitle = document.querySelector(".form__item_type_card-title");
 const inputUrl = document.querySelector(".form__item_type_card-link");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-const forms = document.querySelectorAll(".form");
+const formProfile = document.querySelector(".form_edit_profile");
+const formAddCard = document.querySelector(".form_add_card");
 
 //declaration functions
 
@@ -36,12 +37,12 @@ function createCard(cardData, template) {
   cardImage.src = cardData.src;
   cardImage.alt = cardData.name;
   newCard.querySelector(".card__title").textContent = cardData.name;
-  const buttonsLike = newCard.querySelectorAll(".button_type_like");
-  const buttonsDel = newCard.querySelectorAll(".button_type_delete");
-  const buttonsImage = newCard.querySelectorAll(".button_type_image");
-  pressButtonsLike(buttonsLike);
-  pressButtonDelete(buttonsDel);
-  pressButtonImage(buttonsImage);
+  const buttonLike = newCard.querySelector(".button_type_like");
+  const buttonDel = newCard.querySelector(".button_type_delete");
+  const buttonImage = newCard.querySelector(".button_type_image");
+  pressButtonsLike(buttonLike);
+  pressButtonDelete(buttonDel);
+  pressButtonImage(buttonImage);
   return newCard;
 }
 
@@ -54,33 +55,47 @@ function renderCard(cardData, template, container) {
 function handleClickLike(evt) {
   evt.target.classList.toggle("button_like_active");
 }
+function pressButtonsLike(button) {
+  button.addEventListener("click", handleClickLike);
+}
 
-function pressButtonsLike(buttonsArr) {
-  buttonsArr.forEach((evt) => {
-    evt.addEventListener("click", handleClickLike);
+// function for open popup with image
+function pressButtonImage(button) {
+  button.addEventListener("click", (evt) => {
+    openPopup(popupImage);
+    const popupImg = popupImage.querySelector(".popup__image");
+    popupImg.src = evt.target.src;
+    popupImg.alt = evt.target.alt;
+    popupImage.querySelector(".popup__image-description").textContent =
+      evt.target.alt;
   });
 }
-// function for open popup with image
-function pressButtonImage(buttonsArr) {
-  buttonsArr.forEach((btn) => {
-    btn.addEventListener("click", (evt) => {
-      openPopup(popupImage);
-      const popupImg = popupImage.querySelector(".popup__image");
-      popupImg.src = evt.target.src;
-      popupImg.alt = evt.target.alt;
-      popupImage.querySelector(".popup__image-description").textContent =
-        evt.target.alt;
-    });
-  });
+
+//function for forms
+function submitProfile(evt) {
+  evt.preventDefault();
+  profileName.textContent = inputName.value;
+  profileDescription.textContent = inputDescription.value;
+  closePopup(popupEdit);
+}
+
+function submitAddCard(evt) {
+  evt.preventDefault();
+  renderCard(
+    createCardData(inputTitle.value, inputUrl.value),
+    cardTemplate,
+    cardContainer
+  );
+  inputTitle.value = "";
+  inputUrl.value = "";
+  closePopup(popupAdd);
 }
 
 //function for delete
-function pressButtonDelete(buttonsArr) {
-  buttonsArr.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const deletedItem = btn.closest(".card");
-      deletedItem.remove();
-    });
+function pressButtonDelete(button) {
+  button.addEventListener("click", () => {
+    const deletedItem = button.closest(".card");
+    deletedItem.remove();
   });
 }
 
@@ -111,43 +126,11 @@ buttonsClose.forEach((btn) => {
   });
 });
 
-// change content
-
 // forms submits
-
-forms.forEach((form) => {
-  form.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    switch (form.getAttribute("name")) {
-      case "card":
-        renderCard(
-          createCardData(inputTitle.value, inputUrl.value),
-          cardTemplate,
-          cardContainer
-        );
-        inputTitle.value = "";
-        inputUrl.value = "";
-        closePopup(popupAdd);
-        break;
-      case "author":
-        profileName.textContent = inputName.value;
-        profileDescription.textContent = inputDescription.value;
-        closePopup(popupEdit);
-        break;
-      default:
-        const arr = ["Wednesday", "Thursday", "Friday"];
-        let ask = "";
-        arr.forEach((item) => {
-          ask = ask + item.slice(0, 1);
-          return ask;
-        });
-        console.log(`${ask} ?`);
-    }
-  });
-});
+formProfile.addEventListener("submit", submitProfile);
+formAddCard.addEventListener("submit", submitAddCard);
 
 // rendering start cards
-
 initialCards.forEach((card) => {
   renderCard(card, cardTemplate, cardContainer);
 });

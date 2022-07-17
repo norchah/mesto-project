@@ -13,7 +13,6 @@
 .form__item::placeholder {
     font-size: 14px;
     line-height: 1.21;
-    padding-bottom: 13px;
 }
 
 .form__item:focus {
