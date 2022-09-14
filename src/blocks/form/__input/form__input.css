@@ -1,20 +1,19 @@
-.form__item {
+.form__input {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
-    padding-bottom: 5px;
+    padding-bottom: 7px;
     width: 100%;
-    margin: 32px 0 0;
     box-sizing: border-box;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.21;
 }
 
-.form__item::placeholder {
+.form__input::placeholder {
     font-size: 14px;
     line-height: 1.21;
 }
 
-.form__item:focus {
-    outline-color: rgba(0, 0, 0, .2);
+.form__input:focus {
+    outline-color: rgba(0, 0, 0, .14);
 }

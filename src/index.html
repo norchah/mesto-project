@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="pages/index.css" />
   <title>Проект 'Mesto'</title>
 </head>
 
@@ -13,7 +12,7 @@
   <!-- HEADER-->
 
   <header class="header">
-    <img class="header__logo" src="images/logo/logo.svg" alt="Логотип проекта 'Mesto'">
+    <img class="header__logo" src="<%=require('./images/logo/logo.svg')%>" alt="Логотип проекта 'Mesto'">
   </header>
 
   <!-- MAIN -->
@@ -24,7 +23,7 @@
 
     <section class="profile">
       <div class="profile__avatar-container">
-        <img class="profile__avatar" src="images/avatar.jpg" alt="Аватар">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
       </div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -52,11 +51,20 @@
   <div class="popup popup_type_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="form form_edit_profile" name="author">
-        <input class="form__item form__item_type_name form__item_type_user-name" type="text" name="name"
-          placeholder="Имя">
-        <input class="form__item form__item_type_descrition form__item_type_user-descrition" type="text"
-          name="description" placeholder="Профессия">
+      <form class="form form_edit_profile" name="author" novalidate>
+        <label class="form__label">
+          <input class="form__input form__input_type_name form__input_type_user-name" type="text" name="name"
+            id="name-item" placeholder="Имя" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" minlength="2" maxlength="40"
+            data-error-message="Разрешены только латинские и русские буквы, пробелы и тире" required>
+          <span class="form__item-error name-item-error"></span>
+        </label>
+        <label class="form__label">
+          <input class="form__input form__input_type_descrition form__input_type_user-descrition" type="text"
+            name="description" id="description-item" placeholder="Профессия" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$"
+            minlength="2" maxlength="200"
+            data-error-message="Разрешены только латинские и русские буквы, пробелы и тире" required>
+          <span class="form__item-error description-item-error"></span>
+        </label>
         <button class="button button_type_save button_type_user-save" type="submit">Сохранить</button>
       </form>
       <button class="button button_type_close" type="button" aria-label="Закрыть"></button>
@@ -66,11 +74,19 @@
   <div class="popup popup_type_add">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="form form_add_card" name="card">
-        <input class="form__item form__item_type_name form__item_type_card-title" type="text" name="title"
-          placeholder="Название">
-        <input class="form__item form__item_type_descrition form__item_type_card-link" type="link" name="description"
-          placeholder="Ссылка на картинку">
+      <form class="form form_add_card" name="card" novalidate>
+        <label class="form__label">
+          <input class="form__input form__input_type_name form__input_type_card-title" type="text" name="title"
+            id="title-item" placeholder="Название" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" minlength="2" maxlength="200"
+            data-error-message="Разрешены только латинские и русские буквы, пробелы и тире" required>
+          <span class="form__item-error form__item-error_active title-item-error"></span>
+        </label>
+        <label class="form__label">
+          <input class="form__input form__input_type_descrition form__input_type_card-link" type="link" name="link"
+            id="link-item" placeholder="Ссылка на картинку" pattern="https://.*"
+            data-error-message="Можно ввести только ссылку в формате https://example" required>
+          <span class="form__item-error link-item-error"></span>
+        </label>
         <button class="button button_type_save button_type_card-save" type="submit">Сохранить</button>
       </form>
       <button class="button button_type_close" type="button" aria-label="Закрыть"></button>
@@ -101,7 +117,6 @@
       </div>
     </article>
   </template>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 
 </html>
