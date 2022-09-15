@@ -11,6 +11,7 @@ const showInputError = (
   inputError.textContent = errorMessage;
   inputError.classList.add(errorClass);
 };
+
 //hide errors
 const hideInputError = (
   formElement,
@@ -80,16 +81,14 @@ const setEventListener = (
 ) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
-  if (formElement.classList.contains("form_add_card")) {
-    toggleButtonState(
-      buttonElement,
-      inactiveButtonClass,
-      inputList,
-      inputSelector
-    );
-  }
+  toggleButtonState(
+    buttonElement,
+    inactiveButtonClass,
+    inputList,
+    inputSelector
+  );
   inputList.forEach((inputElement) => {
-    formElement.addEventListener("input", () => {
+    inputElement.addEventListener("input", () => {
       toggleButtonState(
         buttonElement,
         inactiveButtonClass,

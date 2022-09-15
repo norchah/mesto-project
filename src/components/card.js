@@ -13,10 +13,10 @@ const createCard = (cardData, template) => {
   newCard.querySelector(".card__title").textContent = cardData.name;
   const buttonLike = newCard.querySelector(".button_type_like");
   const buttonDel = newCard.querySelector(".button_type_delete");
-  const buttonImage = newCard.querySelector(".button_type_image");
-  pressButtonsLike(buttonLike);
-  pressButtonDelete(buttonDel);
-  pressButtonImage(buttonImage);
+  const buttonImage = newCard.querySelector(".card__image");
+  buttonLike.addEventListener("click", () => pressButtonsLike(buttonLike));
+  buttonDel.addEventListener("click", () => pressButtonDelete(newCard));
+  buttonImage.addEventListener("click", () => pressButtonImage(cardData));
   return newCard;
 };
 

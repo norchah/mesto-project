@@ -11,36 +11,38 @@ import {
   inputDescription,
   inputTitle,
   inputUrl,
+  imagePopup,
+  ImageDescription,
 } from "./variables.js";
 import { renderCard, createCardData } from "./card.js";
 
-// likes functions
-const handleClickLike = (evt) => {
-  evt.target.classList.toggle("button_like_active");
+//disabled submit button
+export const buttonSubmitDisabled = (popup) => {
+  const btnSave = popup.querySelector(".button_type_save");
+  btnSave.setAttribute("disabled", true);
+  btnSave.classList.add("button_type_disabled");
 };
 
-export const pressButtonsLike = (button) => {
-  button.addEventListener("click", handleClickLike);
+// likes functions
+export const pressButtonsLike = (btn) => {
+  btn.classList.toggle("button_like_active");
+};
+
+//delete function
+export const pressButtonDelete = (card) => {
+  card.remove();
 };
 
 // open full image from card image
-export const pressButtonImage = (button) => {
-  button.addEventListener("click", (evt) => {
-    openPopup(popupImage);
-    const popupImg = popupImage.querySelector(".popup__image");
-    popupImg.src = evt.target.src;
-    popupImg.alt = evt.target.alt;
-    popupImage.querySelector(".popup__image-description").textContent =
-      evt.target.alt;
-  });
-};
-
-//delete card
-export const pressButtonDelete = (button) => {
-  button.addEventListener("click", () => {
-    const deletedItem = button.closest(".card");
-    deletedItem.remove();
-  });
+export const pressButtonImage = (data) => {
+  const popupImg = popupImage.querySelector(".popup__image"); //поиск элементов происходит только в открытом попапе (с картинкой)
+  const popupDescription = popupImage.querySelector(
+    ".popup__image-description"
+  );
+  openPopup(popupImage);
+  popupImg.src = data.src;
+  popupImg.alt = data.name;
+  popupDescription.textContent = data.name;
 };
 
 //submits

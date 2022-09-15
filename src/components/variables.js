@@ -1,7 +1,6 @@
 //buttons
 export const buttonEdit = document.querySelector(".button_type_edit");
 export const buttonAdd = document.querySelector(".button_type_add");
-export const buttonsClose = document.querySelectorAll(".button_type_close");
 //modal
 export const popupEdit = document.querySelector(".popup_type_edit");
 export const popupAdd = document.querySelector(".popup_type_add");
@@ -26,3 +25,8 @@ export const profileDescription = document.querySelector(
 //forms
 export const formProfile = document.querySelector(".form_edit_profile");
 export const formAddCard = document.querySelector(".form_add_card");
+
+export const imagePopup = document.querySelector(".popup__image");
+export const ImageDescription = popupImage.querySelector(
+  ".popup__image-description"
+);

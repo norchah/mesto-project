@@ -3,7 +3,6 @@ import { enableValidation } from "./validation.js";
 import {
   buttonEdit,
   buttonAdd,
-  buttonsClose,
   popupEdit,
   popupAdd,
   cardTemplate,
@@ -32,20 +31,15 @@ buttonAdd.addEventListener("click", () => {
   openPopup(popupAdd);
 });
 
-//close by esc
-closePopupByEsc();
-
-//close by overlay
+//close popups by overlay and button
 popups.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    closePopup(evt.target);
-  });
-});
-
-// button close popups
-buttonsClose.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    closePopup(btn.parentElement.parentElement);
+  popup.addEventListener("mousedown", (evt) => {
+    if (
+      evt.target.classList.contains("popup") ||
+      evt.target.classList.contains("button_type_close")
+    ) {
+      closePopup(evt.target.closest(".popup"));
+    }
   });
 });
 
