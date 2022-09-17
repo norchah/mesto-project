@@ -1,5 +1,5 @@
 import "../index.css";
-import { enableValidation } from "./validation.js";
+import { enableValidation, buttonSubmitDisabled } from "./validation.js";
 import {
   buttonEdit,
   buttonAdd,
@@ -16,7 +16,7 @@ import {
   popups,
 } from "./variables.js";
 import { initialCards } from "./initialCards.js";
-import { openPopup, closePopup, closePopupByEsc } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 import { submitAddCard, submitProfile } from "./utils.js";
 import { renderCard } from "./card.js";
 
@@ -29,6 +29,7 @@ buttonEdit.addEventListener("click", () => {
 
 buttonAdd.addEventListener("click", () => {
   openPopup(popupAdd);
+  buttonSubmitDisabled(popupAdd);
 });
 
 //close popups by overlay and button
@@ -38,7 +39,7 @@ popups.forEach((popup) => {
       evt.target.classList.contains("popup") ||
       evt.target.classList.contains("button_type_close")
     ) {
-      closePopup(evt.target.closest(".popup"));
+      closePopup(popup);
     }
   });
 });

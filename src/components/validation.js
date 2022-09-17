@@ -126,3 +126,10 @@ export const enableValidation = ({
     );
   });
 };
+
+//disabled submit button
+export const buttonSubmitDisabled = (popup) => {
+  const btnSave = popup.querySelector(".button_type_save");
+  btnSave.setAttribute("disabled", true);
+  btnSave.classList.add("button_type_disabled");
+};

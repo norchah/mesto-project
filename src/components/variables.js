@@ -27,6 +27,6 @@ export const formProfile = document.querySelector(".form_edit_profile");
 export const formAddCard = document.querySelector(".form_add_card");
 
 export const imagePopup = document.querySelector(".popup__image");
-export const ImageDescription = popupImage.querySelector(
+export const imageDescription = popupImage.querySelector(
   ".popup__image-description"
 );

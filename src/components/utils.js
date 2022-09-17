@@ -12,16 +12,9 @@ import {
   inputTitle,
   inputUrl,
   imagePopup,
-  ImageDescription,
+  imageDescription,
 } from "./variables.js";
 import { renderCard, createCardData } from "./card.js";
-
-//disabled submit button
-export const buttonSubmitDisabled = (popup) => {
-  const btnSave = popup.querySelector(".button_type_save");
-  btnSave.setAttribute("disabled", true);
-  btnSave.classList.add("button_type_disabled");
-};
 
 // likes functions
 export const pressButtonsLike = (btn) => {
@@ -35,14 +28,10 @@ export const pressButtonDelete = (card) => {
 
 // open full image from card image
 export const pressButtonImage = (data) => {
-  const popupImg = popupImage.querySelector(".popup__image"); //поиск элементов происходит только в открытом попапе (с картинкой)
-  const popupDescription = popupImage.querySelector(
-    ".popup__image-description"
-  );
   openPopup(popupImage);
-  popupImg.src = data.src;
-  popupImg.alt = data.name;
-  popupDescription.textContent = data.name;
+  imagePopup.src = data.src;
+  imagePopup.alt = data.name;
+  imageDescription.textContent = data.name;
 };
 
 //submits
