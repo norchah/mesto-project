@@ -38,6 +38,7 @@ const createCard = (cardData, template) => {
     pressButtonDelete(cardData._id, newCard)
   );
   buttonImage.addEventListener("click", () => pressButtonImage(cardData));
+  console.log(cardData.owner);
 
   return newCard;
 };
