@@ -34,7 +34,6 @@ const checkInputValidity = (
 ) => {
   if (inputElement.validity.patternMismatch) {
     inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-    console.log(inputElement.dataset.errorMessage);
   } else {
     inputElement.setCustomValidity("");
   }

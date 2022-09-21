@@ -3,22 +3,26 @@ import { enableValidation, buttonSubmitDisabled } from "./validation.js";
 import {
   buttonEdit,
   buttonAdd,
+  buttonAvatar,
   popupEdit,
   popupAdd,
-  cardTemplate,
-  cardContainer,
+  popupAvatar,
   inputName,
   inputDescription,
   profileName,
   profileDescription,
   formProfile,
   formAddCard,
+  formChangeAvatar,
   popups,
 } from "./variables.js";
-import { initialCards } from "./initialCards.js";
 import { openPopup, closePopup } from "./modal.js";
-import { submitAddCard, submitProfile } from "./utils.js";
-import { renderCard } from "./card.js";
+import { submitAddCard, submitChangeAvatar, submitProfile } from "./utils.js";
+import { getCards, getUser } from "./api.js";
+
+// to get start data
+getUser();
+getCards();
 
 // buttons open popups
 buttonEdit.addEventListener("click", () => {
@@ -30,6 +34,10 @@ buttonEdit.addEventListener("click", () => {
 buttonAdd.addEventListener("click", () => {
   openPopup(popupAdd);
   buttonSubmitDisabled(popupAdd);
+});
+
+buttonAvatar.addEventListener("click", () => {
+  openPopup(popupAvatar);
 });
 
 //close popups by overlay and button
@@ -47,11 +55,7 @@ popups.forEach((popup) => {
 // forms submits
 formProfile.addEventListener("submit", submitProfile);
 formAddCard.addEventListener("submit", submitAddCard);
-
-// rendering start cards
-initialCards.forEach((card) => {
-  renderCard(card, cardTemplate, cardContainer);
-});
+formChangeAvatar.addEventListener("submit", submitChangeAvatar);
 
 // validation forms
 enableValidation({
