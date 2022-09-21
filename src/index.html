@@ -93,6 +93,8 @@
     </div>
   </div>
 
+  <!-- POPUP CHANGE AVATAR -->
+
   <div class="popup popup_type_avatar">
     <div class="popup__container">
       <h2 class="popup__title">Обновить аватар</h2>
@@ -104,6 +106,18 @@
           <span class="form__item-error link-item-error"></span>
         </label>
         <button class="button button_type_save button_type_avatar-save" type="submit">Сохранить</button>
+      </form>
+      <button class="button button_type_close" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
+  <!-- POPUP FOR DELETE -->
+
+  <div class="popup popup_type_delete">
+    <div class="popup__container">
+      <h2 class="popup__title popup__title_bottom-margin">Вы уверены?</h2>
+      <form class="form form_delete" name="delete" novalidate>
+        <button class="button button_type_save button_type_delete-popup" type="submit">Да</button>
       </form>
       <button class="button button_type_close" type="button" aria-label="Закрыть"></button>
     </div>

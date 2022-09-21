@@ -8,6 +8,7 @@ export const popupEdit = document.querySelector(".popup_type_edit");
 export const popupAdd = document.querySelector(".popup_type_add");
 export const popupImage = document.querySelector(".popup_type_image");
 export const popupAvatar = document.querySelector(".popup_type_avatar");
+export const popupDel = document.querySelector(".popup_type_delete");
 export const popups = document.querySelectorAll(".popup");
 //cards
 export const cardTemplate = document.querySelector("#card_template").content;
@@ -31,6 +32,7 @@ export const profileAvatar = document.querySelector(".profile__avatar");
 export const formProfile = document.querySelector(".form_edit_profile");
 export const formAddCard = document.querySelector(".form_add_card");
 export const formChangeAvatar = document.querySelector(".form_avatar");
+export const formDelete = document.querySelector(".form_delete");
 
 export const imagePopup = document.querySelector(".popup__image");
 export const imageDescription = popupImage.querySelector(

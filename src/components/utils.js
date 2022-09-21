@@ -11,6 +11,8 @@ import {
   imagePopup,
   imageDescription,
   profileAvatar,
+  popupDel,
+  formDelete,
 } from "./variables.js";
 import {
   pushCards,
@@ -36,8 +38,7 @@ export const pressButtonsLike = (cardId, count, btn) => {
 
 //delete function
 export const pressButtonDelete = (cardId, card) => {
-  deleteCard(cardId);
-  card.remove();
+  acceptDeleteCard(cardId, card);
 };
 
 // open full image from card image
@@ -67,6 +68,7 @@ export const submitChangeAvatar = (evt) => {
   evt.preventDefault();
   renderLoading(true, evt.target);
   pushAvatar(inputAvatar.value, evt.target);
+  inputAvatar.value = "";
 };
 
 export function renderUserName(name, description, url) {
@@ -82,4 +84,23 @@ export function renderLoading(isLoading, evt) {
   } else {
     buttonSave.textContent = "Сохранить";
   }
+}
+
+export function renderLoadingDel(isLoading, evt) {
+  const buttonSave = evt.querySelector(".button_type_save");
+  if (isLoading) {
+    buttonSave.textContent = "Удаление...";
+  } else {
+    buttonSave.textContent = "Да";
+  }
+}
+
+export function acceptDeleteCard(cardId, card) {
+  openPopup(popupDel);
+  formDelete.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    renderLoadingDel(true, evt.target);
+    deleteCard(cardId, evt);
+    card.remove();
+  });
 }

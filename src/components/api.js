@@ -8,8 +8,10 @@ import {
   popupEdit,
   popupAdd,
   popupAvatar,
+  popupDel,
+  inputAvatar,
 } from "./variables.js";
-import { renderUserName, renderLoading } from "./utils.js";
+import { renderUserName, renderLoading, renderLoadingDel } from "./utils.js";
 import { closePopup } from "./modal.js";
 
 const config = {
@@ -31,7 +33,7 @@ function checkRes(res) {
   }
   return Promise.reject(`Error: ${res.status}`);
 }
-
+// get user data
 export function getUser() {
   return fetch(`${config.baseUrl}/users/me`, {
     method: config.methodGet,
@@ -43,7 +45,7 @@ export function getUser() {
     })
     .catch((err) => console.log(err));
 }
-
+//get cards data
 export function getCards() {
   fetch(`${config.baseUrl}/cards`, {
     method: config.methodGet,
@@ -57,7 +59,7 @@ export function getCards() {
     })
     .catch((err) => console.log(err));
 }
-
+// push card data
 export function pushCards(name, link, evt) {
   return fetch(`${config.baseUrl}/cards`, {
     method: config.methodPost,
@@ -77,7 +79,7 @@ export function pushCards(name, link, evt) {
       closePopup(popupAdd);
     });
 }
-
+// push user data
 export function pushUser(name, about, evt) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: config.methodPatch,
@@ -89,7 +91,6 @@ export function pushUser(name, about, evt) {
   })
     .then((res) => checkRes(res))
     .then((data) => {
-      console.log(data);
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
     })
@@ -99,17 +100,21 @@ export function pushUser(name, about, evt) {
       closePopup(popupEdit);
     });
 }
-
-export function deleteCard(cardId) {
+// delete card
+export function deleteCard(cardId, evt) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: config.methhodDel,
     headers: config.headers,
   })
     .then((res) => checkRes(res))
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err))
+    .finally(() => {
+      renderLoadingDel(false, evt.target);
+      closePopup(popupDel);
+    });
 }
-
+//push avatar data
 export function pushAvatar(avatar, evt) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: config.methodPatch,
@@ -128,7 +133,7 @@ export function pushAvatar(avatar, evt) {
       closePopup(popupAvatar);
     });
 }
-
+// push like
 export function pushLike(count, cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: config.methodPut,
@@ -140,7 +145,7 @@ export function pushLike(count, cardId) {
     })
     .catch((err) => console.log(err));
 }
-
+// delete like
 export function delLike(count, cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: config.methhodDel,
