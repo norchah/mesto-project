@@ -1,4 +1,4 @@
-//show errors
+// show errors
 const showInputError = (
   formElement,
   inputElement,
@@ -12,7 +12,7 @@ const showInputError = (
   inputError.classList.add(errorClass);
 };
 
-//hide errors
+// hide errors
 const hideInputError = (
   formElement,
   inputElement,
@@ -25,7 +25,12 @@ const hideInputError = (
   inputError.classList.remove(errorClass);
 };
 
-//check errors
+// set disable buttons
+function setDisableBtn(btnEl) {
+  btnEl.setAttribute("disabled", true)
+}
+
+// check errors
 const checkInputValidity = (
   formElement,
   inputElement,
@@ -51,18 +56,18 @@ const checkInputValidity = (
   }
 };
 
-//check valid inputs
+// check valid inputs
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-//state of submit buttons
+// state of submit buttons
 const toggleButtonState = (buttonElement, inactiveButtonClass, inputList) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute("disabled", true);
+    setDisableBtn(buttonElement);
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.removeAttribute("disabled");
@@ -104,7 +109,7 @@ const setEventListener = (
   });
 };
 
-//on validation
+// on validation
 export const enableValidation = ({
   formSelector,
   inputSelector,
@@ -126,9 +131,9 @@ export const enableValidation = ({
   });
 };
 
-//disabled submit button
-export const buttonSubmitDisabled = (popup) => {
+// disabled submit button
+export const buttonSubmitDisable = (popup) => {
   const btnSave = popup.querySelector(".button_type_save");
-  btnSave.setAttribute("disabled", true);
+  setDisableBtn(btnSave);
   btnSave.classList.add("button_type_disabled");
 };

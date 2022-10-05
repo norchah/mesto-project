@@ -1,5 +1,5 @@
 import "../index.css";
-import { enableValidation, buttonSubmitDisabled } from "./validation.js";
+import { enableValidation, buttonSubmitDisable } from "./validation.js";
 import {
   buttonEdit,
   buttonAdd,
@@ -15,14 +15,35 @@ import {
   formAddCard,
   formChangeAvatar,
   popups,
+  cardTemplate,
+  cardContainer,
 } from "./variables.js";
-import { openPopup, closePopup } from "./modal.js";
-import { submitAddCard, submitChangeAvatar, submitProfile } from "./utils.js";
-import { getCards, getUser } from "./api.js";
+import {
+  submitAddCard,
+  submitProfile,
+  submitChangeAvatar,
+  renderUserName,
+} from "./modal.js";
+import {  openPopup, closePopup } from "./utils.js";
+import { getCards, getUserInfo } from "./api.js";
+import { renderAppendCard } from "./card.js";
+
+let userId;
+
+renderUserName
 
 // to get start data
-getUser();
-getCards();
+Promise.all([getUserInfo(), getCards()])
+  .then(([userData, cardsData]) => {
+    userId = userData._id;
+    renderUserName(userData.name, userData.about, userData.avatar);
+    cardsData.forEach((card) => {
+      renderAppendCard(card, cardTemplate, cardContainer, userId);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // buttons open popups
 buttonEdit.addEventListener("click", () => {
@@ -33,14 +54,14 @@ buttonEdit.addEventListener("click", () => {
 
 buttonAdd.addEventListener("click", () => {
   openPopup(popupAdd);
-  buttonSubmitDisabled(popupAdd);
 });
 
 buttonAvatar.addEventListener("click", () => {
   openPopup(popupAvatar);
+  buttonSubmitDisable(popupAdd);
 });
 
-//close popups by overlay and button
+// close popups by overlay and button
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
     if (
