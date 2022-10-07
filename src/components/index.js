@@ -1,5 +1,5 @@
 import "../index.css";
-import { enableValidation, buttonSubmitDisable } from "./validation.js";
+import { enableValidation } from "./validation.js";
 import {
   buttonEdit,
   buttonAdd,
@@ -30,8 +30,6 @@ import { renderAppendCard } from "./card.js";
 
 let userId;
 
-renderUserName
-
 // to get start data
 Promise.all([getUserInfo(), getCards()])
   .then(([userData, cardsData]) => {
@@ -58,7 +56,6 @@ buttonAdd.addEventListener("click", () => {
 
 buttonAvatar.addEventListener("click", () => {
   openPopup(popupAvatar);
-  buttonSubmitDisable(popupAdd);
 });
 
 // close popups by overlay and button

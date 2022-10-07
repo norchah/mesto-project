@@ -16,7 +16,7 @@ import {
 import { pushCards, pushUser, pushAvatar } from "./api.js";
 import { renderPrependCard } from "./card.js";
 import { renderLoading, closePopup } from "./utils.js";
-import { buttonSubmitDisable } from "./validation.js";
+import { disableButtonSubmit } from "./validation.js";
 
 export const submitProfile = (evt) => {
   evt.preventDefault();
@@ -40,9 +40,7 @@ export const submitAddCard = (evt) => {
     .then((data) => {
       renderPrependCard(data, cardTemplate, cardContainer, data.owner._id);
       closePopup(popupAdd);
-      inputTitle.value = "";
-      inputUrl.value = "";
-      buttonSubmitDisable(popupAdd);
+      evt.target.reset();
     })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -56,7 +54,7 @@ export const submitChangeAvatar = (evt) => {
   pushAvatar(inputAvatar.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
-      inputAvatar.value = "";
+      evt.target.reset();
       closePopup(popupAvatar);
     })
     .catch((err) => console.log(err))

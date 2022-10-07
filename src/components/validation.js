@@ -92,7 +92,19 @@ const setEventListener = (
     inputSelector
   );
   inputList.forEach((inputElement) => {
+    // disabled button when reset form
+    formElement.addEventListener('reset', () => { // Интересная фича, спасибо
+      setTimeout(() => { // из-за сет таймаута обработчик уходит в конец стека и ждет когда завершится полная очистка формы (напоминалка для себя)
+        toggleButtonState(
+          buttonElement,
+          inactiveButtonClass,
+          inputList,
+          inputSelector
+        );
+      }, 0)
+    })
     inputElement.addEventListener("input", () => {
+      // enable button while input
       toggleButtonState(
         buttonElement,
         inactiveButtonClass,
@@ -132,8 +144,7 @@ export const enableValidation = ({
 };
 
 // disabled submit button
-export const buttonSubmitDisable = (popup) => {
-  const btnSave = popup.querySelector(".button_type_save");
-  setDisableBtn(btnSave);
-  btnSave.classList.add("button_type_disabled");
+export const disableButtonSubmit = (btn) => {
+  setDisableBtn(btn);
+  btn.classList.add("button_type_disabled");
 };
