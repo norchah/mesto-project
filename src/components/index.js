@@ -25,13 +25,21 @@ import {
   renderUserName,
 } from "./modal.js";
 import {  openPopup, closePopup } from "./utils.js";
-import { getCards, getUserInfo } from "./api.js";
+import { Api } from "./Api.js";
 import { renderAppendCard } from "./card.js";
 
 let userId;
 
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-15/",
+  headers: {
+    authorization: "71d1de88-4fa7-4dcd-8a4d-ca9958b8c0d0",
+    "Content-Type": "application/json",
+  },
+})
+
 // to get start data
-Promise.all([getUserInfo(), getCards()])
+Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userData, cardsData]) => {
     userId = userData._id;
     renderUserName(userData.name, userData.about, userData.avatar);

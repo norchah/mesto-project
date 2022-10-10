@@ -1,22 +1,28 @@
-import {
-  popupImage,
-  imageInPopup,
-  imageDescription,
-} from "./variables.js";
-import { pushLike, delLike, deleteCard } from "./api.js";
+import { popupImage, imageInPopup, imageDescription } from "./variables.js";
+import { Api } from "./Api.js";
 import { openPopup } from "./utils.js";
+
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-15/",
+  headers: {
+    authorization: "71d1de88-4fa7-4dcd-8a4d-ca9958b8c0d0",
+    "Content-Type": "application/json",
+  },
+});
 
 // likes functions
 const pressButtonsLike = (cardId, count, btn) => {
   if (btn.classList.contains("button_like_active")) {
-    delLike(cardId, count)
+    api
+      .deleteLike(cardId)
       .then((data) => {
         count.textContent = data.likes.length;
         btn.classList.remove("button_like_active");
       })
       .catch((err) => console.log(err));
   } else {
-    pushLike(cardId, count)
+    api
+      .pushLike(cardId)
       .then((data) => {
         count.textContent = data.likes.length;
         btn.classList.add("button_like_active");
@@ -77,9 +83,10 @@ export const renderPrependCard = (data, template, container, id) => {
 
 // delete function
 export const pressButtonDelete = (cardId, card) => {
-  deleteCard(cardId)
-      .then(() => {
-        card.remove();
-      })
-      .catch((err) => console.log(err))
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      card.remove();
+    })
+    .catch((err) => console.log(err));
 };

@@ -13,15 +13,23 @@ import {
   profileName,
   profileDescription,
 } from "./variables.js";
-import { pushCards, pushUser, pushAvatar } from "./api.js";
+import { Api } from "./Api.js";
 import { renderPrependCard } from "./card.js";
 import { renderLoading, closePopup } from "./utils.js";
-import { disableButtonSubmit } from "./validation.js";
+
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-15/",
+  headers: {
+    authorization: "71d1de88-4fa7-4dcd-8a4d-ca9958b8c0d0",
+    "Content-Type": "application/json",
+  },
+})
+
 
 export const submitProfile = (evt) => {
   evt.preventDefault();
   renderLoading(true, evt.submitter);
-  pushUser(inputName.value, inputDescription.value)
+  api.pushUser(inputName.value, inputDescription.value)
     .then((data) => {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
@@ -36,7 +44,7 @@ export const submitProfile = (evt) => {
 export const submitAddCard = (evt) => {
   evt.preventDefault();
   renderLoading(true, evt.submitter);
-  pushCards(inputTitle.value, inputUrl.value, evt)
+  api.pushCards(inputTitle.value, inputUrl.value, evt)
     .then((data) => {
       renderPrependCard(data, cardTemplate, cardContainer, data.owner._id);
       closePopup(popupAdd);
@@ -51,7 +59,7 @@ export const submitAddCard = (evt) => {
 export const submitChangeAvatar = (evt) => {
   evt.preventDefault();
   renderLoading(true, evt.submitter);
-  pushAvatar(inputAvatar.value)
+  api.pushAvatar(inputAvatar.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
       evt.target.reset();
